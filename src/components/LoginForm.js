@@ -4,22 +4,50 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.state = {
+      username: "",
+      password: "",
+    };
   }
+
+  changeField = (event) => {
+    const target = event.target;
+    this.setState({ [target.name]: target.value });
+  };
+
+  submitForm = (event) => {
+    event.preventDefault();
+
+    if (this.state.username && this.state.password) {
+      return this.props.handleLogin(this.state);
+    }
+  };
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.submitForm}>
         <div>
           <label>
             Username
-            <input id="username" name="username" type="text" />
+            <input
+              onChange={this.changeField}
+              id="username"
+              name="username"
+              type="text"
+              value={this.state.username}
+            />
           </label>
         </div>
         <div>
           <label>
             Password
-            <input id="password" name="password" type="password" />
+            <input
+              onChange={this.changeField}
+              id="password"
+              name="password"
+              type="password"
+              value={this.state.password}
+            />
           </label>
         </div>
         <div>
